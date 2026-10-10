@@ -16,7 +16,7 @@
   <meta property="og:url" content="{{ url()->current() }}">
   <meta property="og:title" content="Paket Jeep Wisata Wukirsari Adventure Yogyakarta">
   <meta property="og:description" content="Jelajahi keindahan alam Wukirsari Yogyakarta dengan sensasi offroad Jeep 4x4 terbaik, aman, dan berkesan.">
-  <meta property="og:image" content="{{ asset('images/hero.jpeg') }}">
+  <meta property="og:image" content="{{ asset('images/hero.jpegit config --global user.nameg') }}">
 
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
