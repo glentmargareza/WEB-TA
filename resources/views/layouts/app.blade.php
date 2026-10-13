@@ -9,7 +9,7 @@
   <title>@yield('title', 'Paket Jeep Wisata Wukirsari Adventure Yogyakarta | Sensasi Offroad Terbaik')</title>
   <meta name="title" content="Paket Jeep Wisata Wukirsari Adventure Yogyakarta">
   <meta name="description" content="Jelajahi keindahan alam desa wisata Wukirsari Imogiri Yogyakarta dengan armada Jeep 4x4 terawat dan driver berpengalaman. Susur sungai, kebun salak, makam Imogiri, hingga sunrise spektakuler.">
-  <meta name="keywords" content="jeep wisata jogja, jeep wukirsari,merapi lava tour alternatif">
+  <meta name="keywords" content="jeep wisata jogja,jeep kaliurang,jeep wukirsari,merapi lava tour alternatif">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -41,9 +41,9 @@
         </div>
       </div>
       <div class="topbar-right">
-        <a href="https://wa.me/6281234567890" target="_blank" class="topbar-link">
+        <a href="" target="_blank" class="topbar-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>+62 812-3456-7890</span>
+          <span>081228677834</span>
         </a>
         <span style="opacity: 0.3;">|</span>
         <a href="#basecamp" class="topbar-link">
@@ -273,7 +273,10 @@
     <div class="modal-content video-modal-content">
       <button class="modal-close-btn" id="closeVideoModal" style="top: 10px; right: 10px; z-index: 10;" aria-label="Tutup Video">&times;</button>
       <div class="video-container-responsive">
-        <iframe id="videoFrame" src="" title="Video Tour Jeep Wisata Wukirsari" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <video id="videoPlayer" controls preload="none" style="width: 100%; height: 100%; border-radius: var(--radius-md);">
+          <source src="{{ asset('videos/vidio.mp4') }}" type="video/mp4">
+          Browser Anda tidak mendukung pemutar video.
+        </video>
       </div>
     </div>
   </div>
