@@ -117,10 +117,10 @@
               <strong>Rp {{ $pkg['price'] }} / Armada</strong>
             </div>
 
-            <button type="button" class="btn-card open-booking-modal" data-package="{{ $pkg['name'] }} (Rp {{ $pkg['price'] }} / Jeep)">
-              <span>Pilih Paket {{ explode(' ', $pkg['name'])[0] }}</span>
+            <a href="{{ route('tour.booking.page', ['package' => $pkg['id']]) }}" class="btn-card">
+              <span>Pilih {{ $pkg['name'] }}</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -427,12 +427,12 @@
         </p>
 
         <div class="cta-buttons-row">
-          <a href="#bookingModal" class="btn btn-orange open-booking-modal" data-package="SHORT TRIP" style="padding: 14px 28px; font-size: 15px;">
-            <span>Booking Sekarang via WA</span>
+          <a href="{{ route('tour.booking.page') }}" class="btn btn-orange" style="padding: 14px 28px; font-size: 15px;">
+            <span>Booking Sekarang Online</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
 
-          <a href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20ingin%20konsultasi%20rute%20custom%20rombongan" target="_blank" class="btn btn-outline-white" style="padding: 14px 26px; font-size: 15px;">
+          <a href="https://wa.me/6281361645727?text=Halo%20Admin,%20saya%20ingin%20konsultasi%20rute%20custom%20rombongan" target="_blank" class="btn btn-outline-white" style="padding: 14px 26px; font-size: 15px;">
             <span>Konsultasi Custom Rute Rombongan</span>
           </a>
         </div>

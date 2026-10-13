@@ -37,18 +37,18 @@
       <div class="topbar-left">
         <div class="topbar-item">
           <span class="topbar-dot"></span>
-          <span>Wisata Jeep Kaliurang Resmi & Terpercaya | Buka Setiap Hari: 07.00 - 17.00 WIB</span>
+          <span>Mitra Resmi Pengelola Jeep Wisata Wukirsari & Merapi | Operasional : Setiap Hari 04.00 - 18.00 WIB</span>
         </div>
       </div>
       <div class="topbar-right">
-        <a href="https://wa.me/6281234567890" target="_blank" class="topbar-link">
+        <a href="https://wa.me/6281361645727" target="_blank" class="topbar-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>+62 812-3456-7890</span>
+          <span>+62 813-6164-5727</span>
         </a>
         <span style="opacity: 0.3;">|</span>
-        <a href="#basecamp" class="topbar-link">
+        <a href="{{ route('home') }}#basecamp" class="topbar-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Basecamp Wukirsari Kaliurang</span>
+          <span>Basecamp Wukirsari Cangkringan</span>
         </a>
       </div>
     </div>
@@ -57,28 +57,26 @@
   <!-- Main Navigation Bar -->
   <header class="navbar">
     <div class="container navbar-container">
-        <div>
-          <a href="/" class="brand">
-            <img src="{{ asset('images/logo.png') }}" alt="Wukirsari Jeep"
-              style="width: 100px !important; height: 80px !important; object-fit: contain;">
-          </a>
-        </div>
-      </a>
+      <div>
+        <a href="{{ route('home') }}" class="brand">
+          <img src="{{ asset('images/logo.png') }}" alt="Jeep Wukirsari Adventure"
+            style="width: 100px !important; height: 80px !important; object-fit: contain;">
+        </a>
+      </div>
 
       <!-- Desktop Nav Menu -->
       <ul class="nav-menu" id="navMenu">
-        <li><a href="#beranda" class="nav-link active">Beranda</a></li>
-        <li><a href="#paket-wisata" class="nav-link">Paket Wisata</a></li>
-        <li><a href="#spot-utama" class="nav-link">Spot Utama</a></li>
-        <li><a href="#cara-booking" class="nav-link">Cara Booking</a></li>
-        <li><a href="#galeri" class="nav-link">Galeri</a></li>
-        <li><a href="#basecamp" class="nav-link">Lokasi</a></li>
+        <li><a href="{{ route('home') }}#beranda" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
+        <li><a href="{{ route('home') }}#paket-wisata" class="nav-link">Paket Wisata</a></li>
+        <li><a href="{{ route('home') }}#spot-utama" class="nav-link">Rute & Destinasi</a></li>
+        <li><a href="{{ route('home') }}#galeri" class="nav-link">Galeri</a></li>
+        <li><a href="{{ route('home') }}#basecamp" class="nav-link">Lokasi Basecamp</a></li>
       </ul>
 
       <!-- CTA Button & Mobile Toggle -->
       <div style="display: flex; align-items: center; gap: 12px;">
-        <a href="#booking" class="btn btn-orange open-booking-modal" data-package="SHORT TRIP">
-          <span>Pesan Sekarang</span>
+        <a href="{{ route('tour.booking.page') }}" class="btn btn-orange">
+          <span>BOOKING SEKARANG</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
 
@@ -128,11 +126,11 @@
           <h4 class="footer-col-title">Kontak & Reservasi</h4>
           <div class="footer-contact-item">
             <span class="footer-contact-icon">📍</span>
-            <span>Jl. Imogiri Timur KM 14, Wukirsari, Imogiri, Bantul, D.I. Yogyakarta 55782</span>
+            <span>Bedoyo, Wukirsari, Kec.Cngkringan, Kabupate Sleman D.I. Yogyakarta 55782</span>
           </div>
           <div class="footer-contact-item">
             <span class="footer-contact-icon">📱</span>
-            <span>+62 812-3456-7890 (Reservasi WhatsApp)</span>
+            <span>+62 813-6164-5727 (Reservasi WhatsApp)</span>
           </div>
           <div class="footer-contact-item">
             <span class="footer-contact-icon">✉️</span>
