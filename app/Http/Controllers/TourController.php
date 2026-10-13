@@ -215,24 +215,20 @@ class TourController extends Controller
 
         $gallery = [
             [
-                'title' => 'Keseruan Rombongan Trip',
-                'caption' => 'Armada Jeep Wukirsari siap menjelajah',
-                'image' => asset('images/medium_trip.jpg'),
+                'title' => 'Sunrise Kaliadem',
+                'image' => asset('images/5.jpeg'),
             ],
             [
-                'title' => 'Water Splash Kali Opak',
-                'caption' => 'Sensasi cipratan air sungai yang memacu adrenalin',
-                'image' => asset('images/short_trip.jpg'),
+                'title' => 'Manuver Air',
+                'image' => asset('images/6.png'),
             ],
             [
-                'title' => 'Jalur Kanopi Bambu Hutan',
-                'caption' => 'Menembus keteduhan alam lereng perbukitan',
-                'image' => asset('images/long_trip.jpg'),
+                'title' => 'Family Gathering Trip',
+                'image' => asset('images/p.jpeg'),
             ],
             [
-                'title' => 'Golden Sunrise Perbukitan',
-                'caption' => 'Pesona mentari terbit di atas lautan awan',
-                'image' => asset('images/sunrise_trip.jpg'),
+                'title' => 'Corporate Outing',
+                'image' => asset('images/pp.jpeg'),
             ],
         ];
 

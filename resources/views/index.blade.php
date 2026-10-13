@@ -154,7 +154,7 @@
         </div>
 
         <div>
-          <a href="https://wa.me/081228677834?text=Halo%20Admin%20Jeep%20Wisata%20Wukirsari,%20saya%20ingin%20konsultasi%20paket%20rombongan" target="_blank" class="btn btn-orange" style="width: 100%;">
+          <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Jeep%20Wisata%20Wukirsari,%20saya%20ingin%20konsultasi%20paket%20rombongan" target="_blank" class="btn btn-orange" style="width: 100%;">
             <span>Chat WhatsApp Sekarang</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -243,8 +243,8 @@
       <!-- Right: Video Preview Card -->
       <div>
         <div class="video-preview-card">
-          <video class="video-thumb-img" muted preload="metadata" aria-label="Video Preview Jeep Adventure">
-            <source src="{{ asset('videos/vidio.mp4') }}" type="video/mp4">
+          <video class="video-thumb-img" muted preload="metadata" playsinline aria-label="Video Preview Jeep Adventure">
+            <source src="{{ asset('videos/vidio.mp4') }}#t=0.5" type="video/mp4">
           </video>
           <div class="video-overlay">
             <button class="play-pulse-btn" id="playVideoBtn" aria-label="Putar Video Tour">
@@ -330,7 +330,6 @@
         <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}">
         <div class="gallery-overlay">
           <div class="gallery-caption">{{ $item['title'] }}</div>
-          <div class="gallery-sub">{{ $item['caption'] }}</div>
         </div>
       </div>
       @endforeach
