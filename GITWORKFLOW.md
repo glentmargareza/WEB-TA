@@ -1,852 +1,486 @@
-\# Git Workflow — WEB-TA
+# PANDUAN GIT WORKFLOW — WEB-TA
 
+### 1. Tujuan Git Workflow
+setiap anggota memiliki branch sendiri. Setelah fitur selesai, kode dikirim ke GitHub. Galent bertugas menggabungkan kode dari semua anggota ke branch `branch-dev` dan memastikan semua fitur berjalan dengan baik.
 
+### 2. Pembagian Tugas dan Branch
 
-> \*\*Alur kerja:\*\* Setiap anggota memiliki branch masing-masing. Semua perubahan fitur dikumpulkan dan diintegrasikan ke `branch-dev` oleh integrator (Galent). Konflik diselesaikan di `branch-dev` agar pekerjaan anggota lain tidak terganggu.
+| Nama | Branch | Tugas |
+| Galent | `galent` | Mengerjakan fitur Galent |
+| Galent | `branch-dev` | Menggabungkan dan menguji semua fitur |
+| Anin | `anin` | Mengerjakan fitur Anin |
+| Shofi | `shofi` | Mengerjakan fitur Shofi |
+| Semua anggota | `main` | Menyimpan versi utama proyek yang sudah stabil |
 
+**Fungsi setiap branch:**
 
+- `main`: menyimpan versi utama proyek yang sudah stabil.
+- `branch-dev`: tempat menggabungkan dan menguji fitur dari semua anggota.
+- `galent`: tempat Galent mengerjakan fiturnya.
+- `anin`: tempat Anin mengerjakan fiturnya.
+- `shofi`: tempat Shofi mengerjakan fiturnya.
 
-\---
+Repository GitHub: https://github.com/glentmargareza/WEB-TA
 
+### 3. Mengenal Perintah Git
 
+Sebelum mulai bekerja, setiap anggota perlu memahami beberapa perintah Git berikut.
 
-\## Tim \& Branch
+| Perintah | Fungsi |
+| `git status` | Melihat perubahan file dan kondisi Git. |
+| `git branch --show-current` | Melihat branch yang sedang aktif. |
+| `git fetch origin` | Mengambil informasi terbaru dari GitHub tanpa langsung menggabungkan kode. |
+| `git pull origin nama-branch` | Mengambil dan menggabungkan pembaruan dari branch tertentu. |
+| `git switch nama-branch` | Berpindah ke branch yang dipilih. |
+| `git add .` | Menyiapkan perubahan untuk disimpan. |
+| `git commit -m "pesan"` | Menyimpan perubahan ke riwayat Git. |
+| `git push origin nama-branch` | Mengirim commit ke GitHub. |
+| `git merge origin/nama-branch` | Menggabungkan perubahan dari branch remote ke branch yang sedang aktif. |
 
-
-
-| User | Branch | Peran |
-
-|---|---|---|
-
-| Galent | `galent-fitur-data-master` dan `branch-dev` | Integrator dan developer fitur data master |
-
-| Anin | `anin` | Developer |
-
-| Shofi | `shofi` | Developer |
-
-| Semua anggota | `main` | Versi utama project yang stabil |
-
-
-
-\*\*Repository:\*\* https://github.com/glentmargareza/WEB-TA
-
-
-
-> Nama branch harus sesuai dengan branch yang benar-benar tersedia di GitHub.
-
-
-
-\---
-
-
-
-\## 1. Setup Awal
-
-
-
-\### Clone Repository (sekali saja)
-
-
+**Penting:** sebelum melakukan merge, pastikan branch yang aktif sudah benar dengan perintah:
 
 ```bash
+git branch --show-current
+```
 
+### 4. Persiapan Awal
+
+Bagian ini dilakukan ketika pertama kali menyiapkan proyek.
+
+#### A. Mengunduh proyek dari GitHub
+
+Buka terminal Antigravity, kemudian jalankan:
+
+```bash
 git clone https://github.com/glentmargareza/WEB-TA.git
-
 cd WEB-TA
-
 ```
 
+Perintah pertama digunakan untuk mengunduh proyek dari GitHub. Perintah kedua digunakan untuk masuk ke folder proyek.
 
+#### B. Melihat branch yang tersedia
 
-\### Ambil Informasi Branch
-
-
+Jalankan:
 
 ```bash
-
 git fetch --all
-
 git branch -a
-
 ```
 
-
-
-\### Checkout Branch Masing-Masing
-
-
+#### C. Berpindah ke branch masing-masing
 
 Galent:
 
-
-
 ```bash
-
-git switch galent-fitur-data-master
-
+git switch galent
 ```
-
-
 
 Anin:
 
-
-
 ```bash
-
 git switch anin
-
 ```
-
-
 
 Shofi:
 
-
-
 ```bash
-
 git switch shofi
-
 ```
 
-
-
-Jika branch lokal belum ada, tetapi branch remote sudah tersedia:
-
-
+Jika branch belum tersedia secara lokal tetapi sudah ada di GitHub, gunakan:
 
 ```bash
-
 git switch --track origin/nama-branch
-
 ```
 
+Ganti `nama-branch` dengan nama branch yang ingin digunakan.
 
+### 5. Cara Kerja Anin dan Shofi
 
-\### Membuat Branch Integrasi
+Anin dan Shofi mengerjakan fitur masing-masing di branch pribadi. Perubahan tidak langsung dimasukkan ke `main`, melainkan dikirim ke branch masing-masing terlebih dahulu.
 
-
-
-Jika `branch-dev` belum tersedia di GitHub, Galent dapat membuatnya dari `main`:
-
-
-
-```bash
-
-git switch main
-
-git pull origin main
-
-git switch -c branch-dev
-
-git push -u origin branch-dev
-
-```
-
-
-
-Jika `branch-dev` sudah tersedia, gunakan:
-
-
-
-```bash
-
-git fetch origin
-
-git switch --track origin/branch-dev
-
-```
-
-
-
-\---
-
-
-
-\## 2. Daily Workflow — Developer (Anin dan Shofi)
-
-
-
-\### Sebelum Mulai Bekerja
-
-
+#### A. Sebelum mulai coding
 
 Anin menjalankan:
 
-
-
 ```bash
-
 git switch anin
-
 git pull origin anin
-
 git fetch origin
-
 git merge origin/branch-dev
-
 ```
-
-
 
 Shofi menjalankan:
 
-
-
 ```bash
-
 git switch shofi
-
 git pull origin shofi
-
 git fetch origin
-
 git merge origin/branch-dev
-
 ```
 
+Langkah tersebut bertujuan untuk mengambil pembaruan terbaru dari branch masing-masing dan memasukkan perubahan yang sudah ada di `branch-dev`.
 
+Jika muncul merge conflict, selesaikan terlebih dahulu sebelum melanjutkan pekerjaan.
 
-Jika terjadi konflik, selesaikan konflik di branch masing-masing sebelum melanjutkan pekerjaan.
+#### B. Setelah selesai coding
 
-
-
-\### Kerja dan Commit
-
-
-
-Setelah mengubah kode:
-
-
+Periksa perubahan yang telah dibuat:
 
 ```bash
-
 git status
-
 git diff
-
 ```
 
-
-
-Tambahkan file yang diperlukan:
-
-
+Jika perubahan sudah benar, simpan menggunakan:
 
 ```bash
-
-git add nama-file
-
-git commit -m "feat: deskripsi fitur"
-
+git add .
+git commit -m "feat: menambahkan fitur"
 ```
 
+Contoh pesan commit:
 
+```bash
+git commit -m "feat: menambahkan fitur login"
+```
 
-\### Push ke GitHub
+Pesan commit sebaiknya menjelaskan perubahan yang benar-benar dilakukan.
 
+#### C. Mengirim kode ke GitHub
 
+Setelah perubahan disimpan, kirim kode ke branch masing-masing.
 
 Anin:
 
-
-
 ```bash
-
 git push origin anin
-
 ```
-
-
 
 Shofi:
 
-
-
 ```bash
-
 git push origin shofi
-
 ```
 
+Setelah push berhasil, kode sudah dikirim ke GitHub dan dapat diambil oleh Galent untuk proses integrasi.
 
+### 6. Cara Kerja Galent sebagai Integrator
 
-\---
+Galent memiliki dua tugas, yaitu mengerjakan fitur sendiri di branch `galent` dan menggabungkan fitur dari semua anggota ke `branch-dev`.
 
+#### Langkah 1 — Mengerjakan fitur Galent
 
-
-\## 3. Alur Integrasi — Galent
-
-
-
-> Galent bertugas menggabungkan perubahan dari branch anggota ke `branch-dev`. Branch `galent-fitur-data-master` tetap digunakan untuk pengembangan fitur pribadi.
-
-
-
-\### Ambil Perubahan Terbaru
-
-
+Pindah ke branch Galent:
 
 ```bash
-
-git fetch --all
-
-git switch branch-dev
-
-git pull origin branch-dev
-
+git switch galent
+git pull origin galent
 ```
 
+Kerjakan fitur yang menjadi tanggung jawab Galent.
 
-
-\### Merge Branch Anin
-
-
+Setelah selesai, periksa perubahan:
 
 ```bash
-
-git merge origin/anin
-
-```
-
-
-
-Jika tidak ada konflik, uji hasil integrasi lalu push:
-
-
-
-```bash
-
-git push origin branch-dev
-
-```
-
-
-
-\### Merge Branch Shofi
-
-
-
-```bash
-
-git fetch origin
-
-git merge origin/shofi
-
-```
-
-
-
-Jika tidak ada konflik dan hasil pengujian sudah benar:
-
-
-
-```bash
-
-git push origin branch-dev
-
-```
-
-
-
-\### Merge Fitur Pribadi Galent
-
-
-
-Jika fitur pribadi Galent sudah di-commit dan di-push:
-
-
-
-```bash
-
-git fetch origin
-
-git switch branch-dev
-
-git pull origin branch-dev
-
-git merge origin/galent-fitur-data-master
-
-```
-
-
-
-Setelah memeriksa hasilnya:
-
-
-
-```bash
-
-git push origin branch-dev
-
-```
-
-
-
-\---
-
-
-
-\## 4. Menyelesaikan Merge Conflict
-
-
-
-Jika Git menampilkan pesan `CONFLICT`, periksa file yang bermasalah:
-
-
-
-```bash
-
 git status
-
+git diff
 ```
 
+Jika sudah benar, simpan perubahan:
 
+```bash
+git add .
+git commit -m "feat: menambahkan fitur Galent"
+```
 
-Buka file yang konflik di Antigravity. Cari penanda berikut:
+Kemudian kirim ke GitHub:
 
+```bash
+git push origin galent
+```
 
+Dengan begitu, fitur Galent sudah tersimpan di branch miliknya.
+
+#### Langkah 2 — Menyiapkan branch-dev
+
+Sebelum menggabungkan fitur anggota, pastikan branch `branch-dev` tersedia.
+
+Jalankan:
+
+```bash
+git fetch origin
+git branch -a
+```
+
+Jika `branch-dev` sudah tersedia secara lokal, jalankan:
+
+```bash
+git switch branch-dev
+git pull origin branch-dev
+```
+
+Jika branch tersebut baru tersedia di GitHub, jalankan:
+
+```bash
+git switch --track origin/branch-dev
+```
+
+#### Langkah 3 — Menggabungkan kode Anin
+
+Pastikan branch aktif adalah `branch-dev`.
+
+Jalankan:
+
+```bash
+git switch branch-dev
+git fetch origin
+git merge origin/anin
+```
+
+Setelah merge berhasil, jalankan aplikasi dan periksa fitur Anin.
+
+Jika sudah benar, kirim hasil integrasi ke GitHub:
+
+```bash
+git push origin branch-dev
+```
+
+#### Langkah 4 — Menggabungkan kode Shofi
+
+Masih di `branch-dev`, jalankan:
+
+```bash
+git fetch origin
+git merge origin/shofi
+```
+
+Uji kembali aplikasi untuk memastikan fitur Shofi berjalan dengan baik.
+
+Jika tidak ada masalah, kirim pembaruan:
+
+```bash
+git push origin branch-dev
+```
+
+#### Langkah 5 — Menggabungkan fitur Galent
+
+Setelah fitur Galent selesai dan sudah di-push ke GitHub, jalankan:
+
+```bash
+git switch branch-dev
+git pull origin branch-dev
+git fetch origin
+git merge origin/galent
+```
+
+Uji kembali aplikasi. Jika semua berjalan dengan baik, jalankan:
+
+```bash
+git push origin branch-dev
+```
+
+### 7. Cara Mengatasi Merge Conflict
+
+Merge conflict terjadi ketika Git menemukan perubahan yang bertentangan pada bagian kode yang sama sehingga tidak bisa menggabungkannya secara otomatis.
+
+Contoh penanda konflik:
 
 ```text
-
 <<<<<<< HEAD
-
 Kode dari branch-dev
-
 =======
-
-Kode dari branch yang digabungkan
-
+Kode dari branch anggota
 >>>>>>> origin/anin
-
 ```
 
+Cara menyelesaikannya:
 
+1. Buka file yang mengalami konflik di Antigravity.
+2. Periksa kode dari kedua versi.
+3. Pilih atau gabungkan kode yang benar.
+4. Hapus penanda `<<<<<<<`, `=======`, dan `>>>>>>>`.
+5. Simpan file.
+6. Periksa kembali kondisi Git.
 
-Pilih atau gabungkan kode yang benar, kemudian hapus semua penanda konflik dan simpan file.
-
-
-
-Tandai konflik sebagai selesai:
-
-
-
-```bash
-
-git add nama-file
-
-git commit -m "fix: resolve merge conflict"
-
-```
-
-
-
-Setelah hasilnya diperiksa:
-
-
+Jalankan:
 
 ```bash
-
-git push origin branch-dev
-
-```
-
-
-
-Ganti nama file dan branch sesuai konflik yang terjadi.
-
-
-
-Jika ingin membatalkan proses merge yang sedang berlangsung sebelum commit merge:
-
-
-
-```bash
-
-git merge --abort
-
-```
-
-
-
-\---
-
-
-
-\## 5. Sinkronisasi Developer
-
-
-
-Setelah Galent memperbarui `branch-dev`, Anin dan Shofi dapat mengambil perubahan terbaru.
-
-
-
-Anin:
-
-
-
-```bash
-
-git switch anin
-
-git fetch origin
-
-git merge origin/branch-dev
-
-```
-
-
-
-Shofi:
-
-
-
-```bash
-
-git switch shofi
-
-git fetch origin
-
-git merge origin/branch-dev
-
-```
-
-
-
-Jika hasilnya sudah benar, push branch masing-masing apabila ada perubahan baru:
-
-
-
-```bash
-
-git push origin anin
-
-```
-
-
-
-atau:
-
-
-
-```bash
-
-git push origin shofi
-
-```
-
-
-
-\---
-
-
-
-\## 6. Kondisi Khusus
-
-
-
-\### A. Developer Belum Push
-
-
-
-Galent tidak dapat menggabungkan commit yang hanya tersimpan di komputer anggota.
-
-
-
-Solusi:
-
-1\. Anggota melakukan commit.
-
-2\. Anggota melakukan push ke branch sendiri.
-
-3\. Galent menjalankan `git fetch origin`.
-
-4\. Galent menggabungkan branch remote anggota ke `branch-dev`.
-
-
-
-\### B. Merge Menampilkan `Already up to date`
-
-
-
-Artinya tidak ada commit baru pada branch yang sedang digabungkan dibandingkan dengan branch aktif.
-
-
-
-Periksa commit remote:
-
-
-
-```bash
-
-git fetch --all
-
-git log --oneline origin/anin -5
-
-```
-
-
-
-Ganti `anin` dengan branch yang ingin diperiksa.
-
-
-
-\### C. Rollback Perubahan
-
-
-
-Jika commit yang salah sudah masuk ke `branch-dev`, gunakan `git revert` untuk membuat commit pembatalan:
-
-
-
-```bash
-
-git switch branch-dev
-
-git revert HEAD
-
-git push origin branch-dev
-
-```
-
-
-
-Pastikan commit terakhir memang commit yang ingin dibatalkan.
-
-
-
-\### D. Membuat Branch Fitur Baru
-
-
-
-Buat branch berdasarkan `branch-dev` terbaru:
-
-
-
-```bash
-
-git switch branch-dev
-
-git pull origin branch-dev
-
-git switch -c nama-fitur
-
-git push -u origin nama-fitur
-
-```
-
-
-
-\### E. Branch Ketinggalan Update
-
-
-
-Developer mengambil update terbaru:
-
-
-
-```bash
-
-git switch anin
-
-git fetch origin
-
-git merge origin/branch-dev
-
-```
-
-
-
-Selesaikan konflik jika ada, uji kode, kemudian push jika diperlukan.
-
-
-
-\### F. Menghapus Branch
-
-
-
-Branch lokal yang sudah tidak digunakan dapat dihapus setelah memastikan pekerjaannya sudah aman:
-
-
-
-```bash
-
-git branch -d nama-branch
-
-```
-
-
-
-Untuk menghapus branch remote, pastikan seluruh anggota menyetujui:
-
-
-
-```bash
-
-git push origin --delete nama-branch
-
-```
-
-
-
-\---
-
-
-
-\## 7. Checklist Harian
-
-
-
-\### Developer — Anin dan Shofi
-
-
-
-\- \[ ] Memastikan branch aktif sudah benar.
-
-\- \[ ] Mengambil perubahan terbaru dari branch sendiri.
-
-\- \[ ] Menggabungkan update `branch-dev`.
-
-\- \[ ] Menguji perubahan sebelum commit.
-
-\- \[ ] Menggunakan pesan commit yang jelas.
-
-\- \[ ] Push perubahan ke branch sendiri.
-
-
-
-\### Integrator — Galent
-
-
-
-\- \[ ] Menjalankan `git fetch --all`.
-
-\- \[ ] Memperbarui `branch-dev`.
-
-\- \[ ] Memeriksa branch anggota sebelum merge.
-
-\- \[ ] Menggabungkan branch Anin dan Shofi satu per satu.
-
-\- \[ ] Menggabungkan fitur pribadi jika sudah siap.
-
-\- \[ ] Menyelesaikan konflik jika ada.
-
-\- \[ ] Menguji hasil integrasi.
-
-\- \[ ] Push hasil ke `branch-dev`.
-
-\- \[ ] Mengabari anggota setelah integrasi selesai.
-
-
-
-\---
-
-
-
-\## 8. Cheat Sheet
-
-
-
-\### Developer
-
-
-
-```bash
-
+git add .
 git status
-
-git switch anin
-
-git pull origin anin
-
-git fetch origin
-
-git merge origin/branch-dev
-
-git add nama-file
-
-git commit -m "feat: deskripsi fitur"
-
-git push origin anin
-
 ```
 
-
-
-Ganti `anin` menjadi `shofi` jika digunakan oleh Shofi.
-
-
-
-\### Integrator
-
-
+Jika Git masih meminta penyelesaian merge dengan commit, jalankan:
 
 ```bash
-
-git fetch --all
-
-git switch branch-dev
-
-git pull origin branch-dev
-
-git merge origin/anin
-
-git push origin branch-dev
-
+git commit -m "fix: menyelesaikan merge conflict"
 ```
 
+Setelah itu, jalankan aplikasi untuk memastikan tidak ada bagian yang rusak.
 
+Jika konflik terjadi di `branch-dev` dan pengujian berhasil, kirim hasilnya:
 
-Ulangi untuk `origin/shofi` dan `origin/galent-fitur-data-master` saat ada perubahan baru.
+```bash
+git push origin branch-dev
+```
 
+Jika ingin membatalkan merge yang masih berlangsung dan belum selesai, gunakan:
 
+```bash
+git merge --abort
+```
 
-\---
+Perintah tersebut tidak digunakan jika merge sudah selesai. Sebelum menyelesaikan konflik, pastikan kode yang diperlukan tidak terhapus.
 
+### 8. Cara Anin dan Shofi Mengambil Pembaruan
 
+Setelah Galent mengirim perubahan ke `branch-dev`, Anin dan Shofi dapat mengambil pembaruan tersebut ke branch masing-masing.
 
-\## 9. Aturan Keamanan
+Anin menjalankan:
 
+```bash
+git switch anin
+git fetch origin
+git merge origin/branch-dev
+```
 
+Shofi menjalankan:
 
-1\. Selalu periksa branch aktif sebelum menjalankan perintah.
+```bash
+git switch shofi
+git fetch origin
+git merge origin/branch-dev
+```
 
-2\. Ambil update terbaru sebelum mulai bekerja.
+Setelah merge selesai, periksa apakah fitur masing-masing masih berjalan dengan baik.
 
-3\. Commit dengan pesan yang jelas.
+Jika hasilnya sudah benar dan ingin mengirim pembaruan ke GitHub, Anin menjalankan:
 
-4\. Push perubahan ke branch masing-masing.
+```bash
+git push origin anin
+```
 
-5\. Gunakan `branch-dev` sebagai tempat integrasi.
+Shofi menjalankan:
 
-6\. Uji hasil merge sebelum diteruskan ke `main`.
+```bash
+git push origin shofi
+```
 
-7\. Jangan melakukan force push pada branch bersama.
+Langkah ini membantu setiap anggota memperoleh pembaruan terbaru dari `branch-dev`.
 
-8\. Jangan menjalankan `git reset --hard` tanpa memahami dampaknya.
+### 9. Kondisi yang Mungkin Terjadi
 
-9\. Jangan mengunggah `.env`, password, token, atau kredensial.
+#### A. Kode belum muncul di GitHub
 
-10\. Koordinasikan perubahan pada file yang dikerjakan bersama.
+Pastikan perubahan sudah di-commit dan di-push. Perubahan yang hanya tersimpan di komputer belum dapat diambil oleh anggota lain.
 
-11\. Baca `docs/database.md` sebelum mengembangkan fitur yang berkaitan dengan database.
+Periksa kondisi Git dengan:
 
-12\. Periksa `git status` sebelum commit dan push.
+```bash
+git status
+git log -5 --oneline
+```
 
+#### B. Muncul pesan `Already up to date`
 
+Artinya tidak ada commit baru yang perlu digabungkan dari sumber yang diperiksa.
 
-\---
+Pesan tersebut tidak selalu berarti seluruh file di kedua branch identik.
 
+#### C. Ingin membatalkan commit yang salah
 
+Jika commit sudah dibagikan kepada anggota lain, gunakan `git revert` untuk membuat commit pembatalan tanpa menghapus riwayat sebelumnya.
 
-\## 10. Alur Kerja Keseluruhan
+Periksa commit yang akan dibatalkan terlebih dahulu.
 
+#### D. Membuat branch fitur baru
 
+Jika ingin membuat branch fitur baru berdasarkan `branch-dev` terbaru, jalankan:
 
-`main` → `branch-dev` → branch fitur masing-masing → commit dan push → integrator menggabungkan ke `branch-dev` → pengujian → integrasi ke `main` setelah disetujui.
+```bash
+git switch branch-dev
+git pull origin branch-dev
+git switch -c nama-fitur
+git push -u origin nama-fitur
+```
 
+Ganti `nama-fitur` dengan nama branch yang diinginkan.
 
+#### E. Menghapus branch
 
-Dokumen ini menjadi pedoman kerja Git dan GitHub untuk seluruh anggota tim WEB-TA.
+Untuk menghapus branch lokal yang sudah tidak digunakan:
 
+```bash
+git branch -d nama-branch
+```
+
+Untuk menghapus branch di GitHub:
+
+```bash
+git push origin --delete nama-branch
+```
+
+Pastikan pekerjaan sudah aman dan anggota tim menyetujui penghapusan branch remote.
+
+### 10. Menjalankan dan Menguji Aplikasi
+
+Setelah fitur digabungkan ke `branch-dev`, Galent perlu menguji aplikasi secara menyeluruh.
+
+Pastikan berada di branch yang benar:
+
+```bash
+git switch branch-dev
+git pull origin branch-dev
+git branch --show-current
+```
+
+Hasil perintah terakhir seharusnya:
+
+```text
+branch-dev
+```
+
+Jika proyek menggunakan Laravel, jalankan:
+
+```bash
+php artisan serve
+```
+
+Buka alamat yang ditampilkan di terminal, kemudian periksa seluruh fitur yang telah digabungkan.
+
+Pengujian mencakup halaman yang bisa dibuka, tombol yang berfungsi, proses penyimpanan data, dan fitur lain yang dikembangkan oleh anggota kelompok.
+
+Setelah integrasi dan pengujian disetujui tim, perubahan dapat diteruskan ke `main`.
+
+### 11. Aturan Penting untuk Semua Anggota
+
+1. Periksa branch aktif sebelum melakukan perubahan.
+2. Ambil pembaruan terbaru sebelum mulai coding.
+3. Gunakan pesan commit yang jelas.
+4. Push kode ke branch masing-masing.
+5. Gunakan `branch-dev` sebagai tempat integrasi.
+6. Uji hasil merge sebelum diteruskan ke `main`.
+7. Jangan menggunakan force push pada branch bersama tanpa persetujuan.
+8. Jangan menggunakan `git reset --hard` jika belum memahami dampaknya.
+9. Jangan mengunggah file `.env`, password, token, atau data rahasia ke GitHub.
+10. Baca `docs/database.md` sebelum mengembangkan fitur database.
+11. Koordinasikan perubahan jika beberapa anggota mengerjakan file yang sama.
+12. Periksa `git status` sebelum commit dan push.
+13. Jangan melakukan merge jika masih ada perubahan lokal yang belum diamankan.
+14. Jika terjadi konflik, diskusikan dengan anggota yang mengerjakan fitur terkait sebelum memilih kode.
+
+### 12. Ringkasan Alur Kerja
+
+**Untuk Anin dan Shofi:**
+
+Coding di branch masing-masing → periksa perubahan → commit → push ke GitHub → menunggu integrasi Galent → mengambil pembaruan dari `branch-dev`.
+
+**Untuk Galent:**
+
+Mengerjakan fitur Galent di branch `galent` → commit → push → berpindah ke `branch-dev` → menggabungkan branch Anin, Shofi, dan Galent satu per satu → menguji aplikasi → push hasil integrasi ke GitHub.
+
+**Alur akhir proyek:**
+
+`main` sebagai versi utama proyek → `branch-dev` sebagai tempat integrasi → branch masing-masing anggota untuk coding → commit dan push → penggabungan oleh Galent ke `branch-dev` → pengujian → masuk ke `main` setelah disetujui tim.
+
+Dokumen ini menjadi pedoman bersama agar pengembangan proyek WEB-TA lebih teratur, perubahan kode mudah dilacak, dan pekerjaan setiap anggota dapat digabungkan dengan aman.
