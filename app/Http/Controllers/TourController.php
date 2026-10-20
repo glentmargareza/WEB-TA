@@ -16,6 +16,25 @@ class TourController extends Controller
     {
         return [
             [
+                'id' => 'adventure',
+                'category' => 'adventure',
+                'name' => 'Adventure',
+                'badge' => 'FAVORIT',
+                'badge_class' => 'badge-orange',
+                'duration' => '1 Hari',
+                'capacity' => '1 - 5 pax',
+                'price' => '450.000',
+                'price_raw' => 450000,
+                'image' => asset('images/jeep_adventure_thumb.jpg'),
+                'features' => [
+                    'Susur Kali Gendol',
+                    'Museum Kampung Hilang',
+                    'Lorong Oksigen',
+                    'Manuver Air Basah',
+                ],
+                'note' => 'Paket petualangan offroad komplit dengan panorama Merapi.',
+            ],
+            [
                 'id' => 'short-trip',
                 'category' => 'short',
                 'name' => 'Short Trip Offroad',
@@ -316,11 +335,17 @@ class TourController extends Controller
             'email' => 'nullable|email|max:100',
             'paket' => 'required|string',
             'paket_nama' => 'nullable|string',
-            'tanggal' => 'required|date',
-            'sesi' => 'required|string',
-            'jumlah_jeep' => 'required|integer|min:1|max:50',
-            'titik_kumpul' => 'nullable|string|max:100',
+            'tanggal' => 'required|string',
+            'waktu' => 'nullable|string',
+            'sesi' => 'nullable|string',
+            'jumlah_orang' => 'nullable|string',
+            'jumlah_jeep' => 'nullable|integer|min:1|max:50',
+            'tipe_kendaraan' => 'nullable|string',
             'lokasi_penjemputan' => 'nullable|string|max:255',
+            'durasi' => 'nullable|string',
+            'jumlah_pendamping' => 'nullable|string',
+            'tipe_pembayaran' => 'nullable|string',
+            'titik_kumpul' => 'nullable|string|max:100',
             'total_biaya' => 'nullable|numeric',
             'dp_biaya' => 'nullable|numeric',
             'catatan' => 'nullable|string|max:500',
@@ -328,27 +353,33 @@ class TourController extends Controller
 
         $phone = '6281361645727';
         $packageName = $validated['paket_nama'] ?? $validated['paket'];
-        $jeepCount = (int) $validated['jumlah_jeep'];
-        $totalFormatted = !empty($validated['total_biaya']) ? 'Rp ' . number_format($validated['total_biaya'], 0, ',', '.') : '-';
-        $dpFormatted = !empty($validated['dp_biaya']) ? 'Rp ' . number_format($validated['dp_biaya'], 0, ',', '.') : '-';
+        $waktu = $validated['waktu'] ?? $validated['sesi'] ?? '08:00 - 09:00';
+        $jumlahOrang = $validated['jumlah_orang'] ?? '4 Orang';
+        $tipeKendaraan = $validated['tipe_kendaraan'] ?? 'Jeep 4x4';
+        $lokasiJemput = $validated['lokasi_penjemputan'] ?? 'Cangkringan, Sleman';
+        $durasi = $validated['durasi'] ?? '1 Hari';
+        $pendamping = $validated['jumlah_pendamping'] ?? '4 Orang';
+        $tipeBayar = $validated['tipe_pembayaran'] ?? 'Transfer Bank';
+        $totalFormatted = !empty($validated['total_biaya']) ? 'Rp ' . number_format($validated['total_biaya'], 0, ',', '.') : 'Rp 450.000';
 
         $text = "Halo Admin Jeep Wisata Wukirsari Adventure,\n\n"
               . "Saya ingin melakukan booking via Website:\n"
               . "━━━━━━━━━━━━━━━━━━━━━\n"
               . "• Nama Lengkap: {$validated['nama']}\n"
               . "• No WhatsApp: {$validated['telepon']}\n"
-              . (!empty($validated['email']) ? "• Email: {$validated['email']}\n" : "")
+              . "• Tanggal: {$validated['tanggal']}\n"
+              . "• Waktu: {$waktu}\n"
+              . "• Jumlah Orang: {$jumlahOrang}\n"
               . "• Paket Wisata: {$packageName}\n"
-              . "• Tanggal Trip: {$validated['tanggal']}\n"
-              . "• Sesi Waktu: {$validated['sesi']}\n"
-              . "• Jumlah Armada: {$jeepCount} Unit Jeep 4x4 (Maks. " . ($jeepCount * 4) . " Penumpang)\n"
-              . "• Titik Kumpul: " . ($validated['titik_kumpul'] ?? 'Basecamp Wukirsari Cangkringan') . "\n"
-              . (!empty($validated['lokasi_penjemputan']) ? "• Info Penjemputan: {$validated['lokasi_penjemputan']}\n" : "")
-              . (!empty($validated['total_biaya']) ? "• Total Estimasi: {$totalFormatted}\n" : "")
-              . (!empty($validated['dp_biaya']) ? "• Komitmen DP (30%): {$dpFormatted}\n" : "")
-              . (!empty($validated['catatan']) ? "• Catatan Khusus: {$validated['catatan']}\n" : "")
+              . "• Tipe Kendaraan: {$tipeKendaraan}\n"
+              . "• Lokasi Penjemputan: {$lokasiJemput}\n"
+              . "• Durasi: {$durasi}\n"
+              . "• Jumlah Pendamping: {$pendamping}\n"
+              . "• Tipe Pembayaran: {$tipeBayar}\n"
+              . "• Total Harga: {$totalFormatted}\n"
+              . (!empty($validated['catatan']) ? "• Catatan: {$validated['catatan']}\n" : "")
               . "━━━━━━━━━━━━━━━━━━━━━\n"
-              . "Mohon info ketersediaan slot armada dan petunjuk rekening pembayaran DP. Terima kasih!";
+              . "Mohon info ketersediaan slot armada dan konfirmasi jadwal. Terima kasih!";
 
         $whatsappUrl = "https://wa.me/{$phone}?text=" . urlencode($text);
 

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Card Background -->
+  <rect x="2" y="2" width="276" height="276" rx="16" fill="url(#bgGrad)" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Banner: QRIS Header -->
+  <g transform="translate(24, 20)">
+    <text x="0" y="16" font-family="'Outfit', 'Segoe UI', sans-serif" font-weight="900" font-size="20" fill="#0f172a" letter-spacing="1">QRIS</text>
+    <text x="64" y="14" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="9" fill="#64748b" letter-spacing="0.5">STANDAR PEMBAYARAN NASIONAL</text>
+    <line x1="0" y1="24" x2="232" y2="24" stroke="#e2e8f0" stroke-width="1.5"/>
+  </g>
+
+  <!-- Stylized Decorative QR Matrix Pattern (Non-Functional Placeholder) -->
+  <g transform="translate(38, 54)" opacity="0.85">
+    <!-- Top-Left Finder Pattern -->
+    <rect x="0" y="0" width="52" height="52" rx="8" fill="#1e293b"/>
+    <rect x="8" y="8" width="36" height="36" rx="4" fill="#ffffff"/>
+    <rect x="16" y="16" width="20" height="20" rx="3" fill="#1e293b"/>
+
+    <!-- Top-Right Finder Pattern -->
+    <rect x="152" y="0" width="52" height="52" rx="8" fill="#1e293b"/>
+    <rect x="160" y="8" width="36" height="36" rx="4" fill="#ffffff"/>
+    <rect x="168" y="16" width="20" height="20" rx="3" fill="#1e293b"/>
+
+    <!-- Bottom-Left Finder Pattern -->
+    <rect x="0" y="128" width="52" height="52" rx="8" fill="#1e293b"/>
+    <rect x="8" y="136" width="36" height="36" rx="4" fill="#ffffff"/>
+    <rect x="16" y="144" width="20" height="20" rx="3" fill="#1e293b"/>
+
+    <!-- Dummy Dots / Matrix Elements (Aesthetic Only) -->
+    <rect x="62" y="6" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="80" y="6" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="98" y="6" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="126" y="6" width="10" height="10" rx="2" fill="#334155"/>
+
+    <rect x="62" y="24" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="80" y="32" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="112" y="24" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="130" y="32" width="10" height="10" rx="2" fill="#334155"/>
+
+    <rect x="6" y="64" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="24" y="76" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="42" y="64" width="10" height="10" rx="2" fill="#334155"/>
+    
+    <rect x="156" y="64" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="174" y="76" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="192" y="64" width="10" height="10" rx="2" fill="#334155"/>
+
+    <rect x="6" y="98" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="24" y="108" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="42" y="98" width="10" height="10" rx="2" fill="#334155"/>
+
+    <rect x="160" y="128" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="178" y="128" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="196" y="140" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="160" y="160" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="184" y="168" width="10" height="10" rx="2" fill="#334155"/>
+
+    <rect x="62" y="136" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="80" y="146" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="98" y="136" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="122" y="150" width="10" height="10" rx="2" fill="#334155"/>
+    <rect x="138" y="136" width="10" height="10" rx="2" fill="#334155"/>
+  </g>
+
+  <!-- Clear Center Placeholder Overlay Badge -->
+  <rect x="52" y="105" width="176" height="70" rx="10" fill="#0f172a" fill-opacity="0.94" stroke="#f27405" stroke-width="1.5" filter="url(#shadow)"/>
+  
+  <g transform="translate(140, 126)" text-anchor="middle">
+    <!-- Lock / Notice Icon -->
+    <circle cx="0" cy="-3" r="10" fill="#f27405" fill-opacity="0.2"/>
+    <path d="M-4 -3 h8 v6 h-8 z M-2 -3 v-3 a2 2 0 0 1 4 0 v3" fill="none" stroke="#f27405" stroke-width="1.5"/>
+    
+    <text x="0" y="17" font-family="'Outfit', sans-serif" font-weight="800" font-size="11" fill="#f27405" letter-spacing="0.5">QRIS BELUM DIKONFIGURASI</text>
+    <text x="0" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8.5" fill="#94a3b8">Menunggu QRIS Merchant Resmi</text>
+  </g>
+
+  <!-- Bottom Details: Merchant Info & Warning -->
+  <g transform="translate(140, 248)" text-anchor="middle">
+    <text x="0" y="0" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="10" fill="#0f172a">JEEP WUKIRSARI ADVENTURE</text>
+    <text x="0" y="14" font-family="'Plus Jakarta Sans', monospace" font-weight="600" font-size="8.5" fill="#64748b">NMID: (Menunggu Konfigurasi)</text>
+  </g>
+</svg>

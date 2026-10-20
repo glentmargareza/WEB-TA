@@ -1,0 +1,647 @@
+/* ==========================================================================
+   HALAMAN FORM BOOKING - JEEP WISATA ADVENTURE
+   Desain Modern, Bersih, Sesuai Mockup UI Baru
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. PAGE WRAPPER & BACKGROUND
+   -------------------------------------------------------------------------- */
+body.booking-page-body {
+  background-color: #f4f7f4;
+  background-image: url('../images/booking-mountain-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% auto;
+  background-attachment: fixed;
+  color: #1e293b;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Sembunyikan topbar & navbar gelap bawaan layout di halaman booking */
+body.booking-page-body .topbar,
+body.booking-page-body > header.navbar {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. FLOATING PILL NAVBAR
+   -------------------------------------------------------------------------- */
+.booking-navbar-wrapper {
+  padding: 24px 20px 10px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.booking-floating-navbar {
+  background: #ffffff;
+  border-radius: 9999px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.booking-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-icon-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #214d3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.brand-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a382c;
+  line-height: 1.2;
+}
+
+.brand-sub-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: 0.3px;
+}
+
+.booking-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.booking-nav-link {
+  text-decoration: none;
+  color: #334155;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.booking-nav-link:hover,
+.booking-nav-link.active {
+  color: #214d3e;
+  font-weight: 600;
+}
+
+.booking-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.booking-search-btn {
+  background: transparent;
+  border: none;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.booking-search-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.booking-cta-btn {
+  background: #214d3e;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(33, 77, 62, 0.2);
+}
+
+.booking-cta-btn:hover {
+  background: #17382d;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 77, 62, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   3. HORIZONTAL STEPPER PILL
+   -------------------------------------------------------------------------- */
+.booking-stepper-container {
+  max-width: 1140px;
+  margin: 16px auto 24px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.booking-stepper-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+}
+
+.step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #475569;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.step-pill.active {
+  background: #214d3e;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(33, 77, 62, 0.18);
+}
+
+.step-pill.active .step-pill-icon {
+  color: #ffffff;
+}
+
+.step-pill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+.step-connector-line {
+  width: 44px;
+  height: 1px;
+  background: #cbd5e1;
+}
+
+/* --------------------------------------------------------------------------
+   4. MAIN BOOKING LAYOUT GRID
+   -------------------------------------------------------------------------- */
+.booking-content-section {
+  max-width: 1140px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   5. LEFT FORM CARD
+   -------------------------------------------------------------------------- */
+.booking-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.form-header-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: #e8f5ed;
+  color: #214d3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-main-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.form-main-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0;
+}
+
+.form-section-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+}
+
+/* FORM FIELDS & GROUPS */
+.field-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.field-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.field-label .required-star {
+  color: #ef4444;
+}
+
+/* INPUT & SELECT WRAPPER WITH ICONS */
+.input-icon-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-left-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.booking-input,
+.booking-select,
+.booking-textarea {
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 13.5px;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 11px 14px 11px 44px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Date Picker Interaktif */
+.date-input-box {
+  cursor: pointer;
+}
+
+.date-picker-input {
+  cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: auto;
+}
+
+.date-picker-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 4px;
+  border-radius: 4px;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.date-picker-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  background-color: #f1f5f9;
+}
+
+/* Badge hint kapasitas */
+.field-hint-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #214d3e;
+  background: #e8f5ed;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.field-help-text {
+  display: block;
+  font-size: 11.5px;
+  color: #64748b;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.booking-input::placeholder,
+.booking-textarea::placeholder {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.booking-input:focus,
+.booking-select:focus,
+.booking-textarea:focus {
+  border-color: #214d3e;
+  box-shadow: 0 0 0 3px rgba(33, 77, 62, 0.1);
+  background: #ffffff;
+}
+
+/* CUSTOM DROPDOWN STYLING */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.booking-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 36px;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TEXTAREA */
+.textarea-icon-box {
+  position: relative;
+  width: 100%;
+}
+
+.textarea-left-icon {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.booking-textarea {
+  padding-top: 12px;
+  resize: vertical;
+  min-height: 84px;
+}
+
+/* --------------------------------------------------------------------------
+   6. RIGHT SUMMARY CARD
+   -------------------------------------------------------------------------- */
+.booking-summary-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  position: sticky;
+  top: 24px;
+}
+
+.summary-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.summary-header-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #e8f5ed;
+  color: #214d3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.summary-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* PREVIEW ITEM BOX */
+.summary-package-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.summary-package-img {
+  width: 84px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-package-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-package-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.summary-package-cap {
+  font-size: 13px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* SUMMARY DETAILS TABLE LIST */
+.summary-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summary-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.summary-item-label {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.summary-item-value {
+  color: #0f172a;
+  font-weight: 600;
+  text-align: right;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 16px 0;
+}
+
+/* TOTAL ROW */
+.summary-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.summary-total-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.summary-total-price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #214d3e;
+}
+
+/* SUBMIT BUTTON */
+.btn-submit-booking {
+  width: 100%;
+  background: #214d3e;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(33, 77, 62, 0.25);
+}
+
+.btn-submit-booking:hover {
+  background: #17382d;
+  box-shadow: 0 6px 18px rgba(33, 77, 62, 0.35);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-nav-links {
+    display: none;
+  }
+
+  .booking-form-card {
+    padding: 24px 20px;
+  }
+
+  .field-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .booking-stepper-pills {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .step-connector-line {
+    display: none;
+  }
+}

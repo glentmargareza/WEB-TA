@@ -242,15 +242,16 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="inputJeepCount">Jumlah Armada Jeep (Maks. 4 Orang / Jeep) *</label>
+          <label class="form-label" for="inputJeepCount">Jumlah Armada Jeep (Maks. 4 Dewasa / Jeep) *</label>
           <select id="inputJeepCount" class="form-select" required>
-            <option value="1">1 Armada Jeep (1 - 4 Orang)</option>
+            <option value="1">1 Armada Jeep (1 - 4 Orang / Maks. 5 jika 1 Anak Kecil)</option>
             <option value="2">2 Armada Jeep (5 - 8 Orang)</option>
             <option value="3">3 Armada Jeep (9 - 12 Orang)</option>
             <option value="4">4 Armada Jeep (13 - 16 Orang)</option>
             <option value="5">5 Armada Jeep (17 - 20 Orang)</option>
             <option value="10">Rombongan Lebih dari 5 Jeep (>20 Orang)</option>
           </select>
+          <span style="font-size: 11.5px; color: var(--text-muted); display: block; margin-top: 4px;">Kapasitas normal 1 Jeep maks. 4 orang dewasa. Muat 5 orang bila 1 di antaranya anak kecil.</span>
         </div>
 
         <div class="form-group">
