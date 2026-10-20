@@ -239,7 +239,8 @@ class TourController extends Controller
         return view('index', compact('packages', 'spots', 'reasons', 'steps', 'gallery'));
     }
 
-    /**
+
+/**
      * Booking process endpoint (AJAX or direct redirect to WhatsApp)
      */
     public function book(Request $request)
@@ -257,13 +258,13 @@ class TourController extends Controller
         $phone = '6281234567890';
         $text = "Halo Admin Jeep Wisata Wukirsari Adventure,\n\n"
               . "Saya ingin melakukan booking:\n"
-              . "• Nama: {$validated['nama']}\n"
-              . "• No HP/WA: {$validated['telepon']}\n"
-              . "• Paket: {$validated['paket']}\n"
-              . "• Tanggal: {$validated['tanggal']}\n"
-              . "• Sesi: {$validated['sesi']}\n"
-              . "• Jumlah Jeep: {$validated['jumlah_jeep']} Armada\n"
-              . ($validated['catatan'] ? "• Catatan: {$validated['catatan']}\n" : "")
+              . "â€¢ Nama: {$validated['nama']}\n"
+              . "â€¢ No HP/WA: {$validated['telepon']}\n"
+              . "â€¢ Paket: {$validated['paket']}\n"
+              . "â€¢ Tanggal: {$validated['tanggal']}\n"
+              . "â€¢ Sesi: {$validated['sesi']}\n"
+              . "â€¢ Jumlah Jeep: {$validated['jumlah_jeep']} Armada\n"
+              . ($validated['catatan'] ? "â€¢ Catatan: {$validated['catatan']}\n" : "")
               . "\nMohon konfirmasi ketersediaan dan detail pembayarannya. Terima kasih!";
 
         $whatsappUrl = "https://wa.me/{$phone}?text=" . urlencode($text);
@@ -278,3 +279,8 @@ class TourController extends Controller
         return redirect()->away($whatsappUrl);
     }
 }
+
+
+
+
+
