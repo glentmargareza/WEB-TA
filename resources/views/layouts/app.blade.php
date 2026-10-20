@@ -52,7 +52,20 @@
                 <li><a class="nav__link" href="{{ route('packages.index') }}" @if(request()->routeIs('packages.*')) aria-current="page" @endif>Paket Wisata</a></li>
                 <li><a class="nav__link" href="{{ route('home') }}#tentang">Tentang Kami</a></li>
                 <li><a class="nav__link" href="{{ route('home') }}#galeri">Galeri</a></li>
-                <li><a class="nav__link" href="#kontak">Kontak</a></li>
+                <li><a class="nav__link" href="{{ route('home') }}#kontak">Kontak</a></li>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                        <li><a class="nav__link" href="{{ route('admin.dashboard') }}" style="color: var(--color-primary-600); font-weight: 700;">Admin Panel</a></li>
+                    @endif
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="nav__link" style="background:none; border:none; cursor:pointer; font-family:inherit;">Keluar</button>
+                        </form>
+                    </li>
+                @else
+                    <li><a class="nav__link" href="{{ route('login') }}">Masuk</a></li>
+                @endauth
             </ul>
             <button type="button" class="btn btn--primary btn--block nav__cta" data-booking>
                 <x-icon name="calendar-check" :size="18" /> Booking Sekarang
@@ -63,6 +76,23 @@
             <a href="{{ route('packages.index') }}" class="header-search-btn" aria-label="Cari paket wisata">
                 <x-icon name="search" :size="20" />
             </a>
+            @auth
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn--secondary" style="padding: 9px 14px; font-size: 13px;">
+                        <x-icon name="layout-dashboard" :size="16" /> Admin Panel
+                    </a>
+                @endif
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn--ghost" style="padding: 9px 14px; font-size: 13px;" title="Keluar">
+                        <x-icon name="log-out" :size="16" />
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="btn btn--ghost" style="padding: 9px 14px; font-size: 13px;">
+                    Masuk
+                </a>
+            @endauth
             <button type="button" class="btn btn--primary header-cta" data-booking>
                 <x-icon name="calendar-check" :size="18" /> Booking Sekarang <x-icon name="arrow-right" :size="14" />
             </button>
