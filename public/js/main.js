@@ -139,19 +139,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // 5. Video Preview Modal
+  // 5. Video Preview Modal (Local MP4)
   const videoModal = document.getElementById('videoModal');
   const playVideoBtn = document.getElementById('playVideoBtn');
   const closeVideoModal = document.getElementById('closeVideoModal');
-  const videoFrame = document.getElementById('videoFrame');
+  const videoPlayer = document.getElementById('videoPlayer');
 
   if (playVideoBtn && videoModal) {
     playVideoBtn.addEventListener('click', function () {
       videoModal.classList.add('open');
       document.body.style.overflow = 'hidden';
-      // Load YouTube embed when clicked
-      if (videoFrame && !videoFrame.getAttribute('src')) {
-        videoFrame.setAttribute('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1');
+      // Auto-play video when modal opens
+      if (videoPlayer) {
+        videoPlayer.play();
       }
     });
 
@@ -159,8 +159,9 @@ document.addEventListener('DOMContentLoaded', function () {
       closeVideoModal.addEventListener('click', function () {
         videoModal.classList.remove('open');
         document.body.style.overflow = '';
-        if (videoFrame) {
-          videoFrame.setAttribute('src', '');
+        if (videoPlayer) {
+          videoPlayer.pause();
+          videoPlayer.currentTime = 0;
         }
       });
     }
@@ -169,8 +170,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.target === videoModal) {
         videoModal.classList.remove('open');
         document.body.style.overflow = '';
-        if (videoFrame) {
-          videoFrame.setAttribute('src', '');
+        if (videoPlayer) {
+          videoPlayer.pause();
+          videoPlayer.currentTime = 0;
         }
       }
     });
