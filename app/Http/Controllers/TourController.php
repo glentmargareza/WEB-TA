@@ -3,278 +3,117 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class TourController extends Controller
 {
-    /**
-     * Display the main landing page with tour packages and destinations.
-     */
-    public function index()
+    private function catalog()
     {
-        $packages = [
-            [
-                'id' => 'short-trip',
-                'category' => 'short',
-                'name' => 'SHORT TRIP',
-                'badge' => 'POPULER',
-                'badge_class' => 'badge-orange',
-                'duration' => '2 - 2.5 Jam',
-                'capacity' => '4 Orang / Jeep',
-                'price' => '450.000',
-                'price_raw' => 450000,
-                'image' => asset('images/1.jpeg'),
-                'features' => [
-                    'Susur Kali Gendol',
-                    'Museum Kampung Hilang',
-                    'Lorong Oksigen',
-                    'Gerbang Tol Sokario',
-                    'Manuver Air',
-                ],
-                'note' => 'Cocok untuk keluarga & pemula yang ingin sensasi offroad santai namun tetap menantang.',
-            ],
-            [
-                'id' => 'medium-trip',
-                'category' => 'medium',
-                'name' => 'MEDIUM TRIP A',
-                'badge' => 'BEST VALUE',
-                'badge_class' => 'badge-emerald',
-                'duration' => '2 - 2.5 Jam',
-                'capacity' => '4 Orang / Jeep',
-                'price' => '550.000',
-                'price_raw' => 550000,
-                'image' => asset('images/2.jpeg'),
-                'features' => [
-                    'Volcano Park',
-                    'Susur Sungai kali Gendol',
-                    'Museum Kampung Hilang',
-                    'Lorong Oksigen',
-                    'Gerbang Tol Sokario',
-                    'Manuver Air',
-                ],
-                'note' => 'Pilihan terfavorit dengan kombinasi alam, adrenalin susur kali, dan situs budaya.',
-            ],
-            
-            [
-                'id' => 'medium-trip',
-                'category' => 'medium',
-                'name' => 'MEDIUM TRIP B',
-                'badge' => 'BEST VALUE',
-                'badge_class' => 'badge-emerald',
-                'duration' => '2 - 2.5 Jam',
-                'capacity' => '4 Orang / Jeep',
-                'price' => '550.000',
-                'price_raw' => 550000,
-                'image' => asset('images/3.jpeg'),
-                'features' => [
-                    'Susur Sungai kali Gendol',
-                    'Museum Kampung Hilang',
-                    'Selo Maruto',
-                    'Lorong Oksigen',
-                    'Gerbang Tol Sokario',
-                    'Manuver Air',
-                ],
-                'note' => 'Pilihan terfavorit dengan kombinasi alam, adrenalin susur kali, dan situs budaya.',
-            ],
-            [
-                'id' => 'long-trip',
-                'category' => 'long',
-                'name' => 'LONG TRIP',
-                'badge' => 'LENGKAP',
-                'badge_class' => 'badge-orange',
-                'duration' => '2.5 - 3 Jam',
-                'capacity' => '4 Orang / Jeep',
-                'price' => '650.000',
-                'price_raw' => 650000,
-                'image' => asset('images/4.jpeg'),
-                'features' => [
-                    'Susur Sungai Watugede',
-                    'Volcano Park',
-                    'Susur Sungai kali Gendol',
-                    'Museum Kampung Hilang',
-                    'Selo Maruto',
-                    'Lorong Oksigen',
-                    'Gerbang Tol Sokario',
-                    'Manuver Air',
-                ],
-                'note' => 'Eksplorasi total dengan rute offroad lengkap dan spot pemandangan terbaik.',
-            ],
-            [
-                'id' => 'sunrise-trip',
-                'category' => 'sunrise',
-                'name' => 'SUNRISE TRIP',
-                'badge' => 'SPESIAL',
-                'badge_class' => 'badge-amber',
-                'duration' => '3 - 4 Jam',
-                'capacity' => '4 Orang / Jeep',
-                'price' => '650.000',
-                'price_raw' => 650000,
-                'image' => asset('images/5.jpeg'),
-                'features' => [
-                    'Bunker Kaliadem',
-                    'Tebing Kali Gendol',
-                    'Lorong Oksigen',
-                    'Gerbang Tol Sokario',
-                    'Museum Kampung Hilang',
-                    'Susur Sungai Kali Gendol',
-                    'Manuver Air',
-                ],
-                'note' => 'Menikmati lautan awan dan matahari terbit spektakuler dari puncak bukit.',
-            ],
-        ];
-
-        $spots = [
-            [
-                'no' => '01',
-                'title' => 'Susur Kali Gendol',
-                'tag' => 'Tersedia di Semua Paket',
-                'image' => asset('images/kali_gendol.jpeg'),
-                'description' => 'Sensasi jalur lintasan bebatuan dan aliran lahar dingin Kali Gendol yang menantang dengan panorama tebing vulkanik megah.',
-            ],
-            [
-                'no' => '02',
-                'title' => 'Musium Kampung Hilang',
-                'tag' => 'Edukasi & Memori',
-                'image' => asset('images/kampung_hilang.jpeg'),
-                'description' => 'Saksi bisu kedahsyatan erupsi dan jejak pemukiman yang hilang, mengabadikan memorabilia serta cerita perjuangan warga lereng.',
-            ],
-            [
-                'no' => '03',
-                'title' => 'Lorong Oksigen',
-                'tag' => 'Udara Segar Pegunungan',
-                'image' => asset('images/lorong.jpeg'),
-                'description' => 'Jalur hijau rimbun pepohonan dengan udara pegunungan yang sangat sejuk, kanopi alami teduh dan relaksasi alami di lereng gunung.',
-            ],
-            [
-                'no' => '04',
-                'title' => 'Gerbang Tol Sokario',
-                'tag' => 'Spot Favorit Berfoto',
-                'image' => asset('images/gerbang_tol.jpeg'),
-                'description' => 'Ikon spot foto viral dan lintasan unik Jeep Wukirsari,landmark buatan penuh kehangatan khas komunitas offroad lokal.',
-            ],
-            [
-                'no' => '05',
-                'title' => 'Manuver Air (Water Splash)',
-                'tag' => 'Sensasi Water Splash',
-                'image' => asset('images/manuver.jpeg'),
-                'description' => 'Aksi manuver basah-basahan paling seru dan memacu adrenalin di sungai. Sensasi 80% fun offroad ciri khas Jeep Wukirsari!',
-            ],
-            [
-                'no' => '06',
-                'title' => 'Volcano Park',
-                'tag' => 'Tersedia di Paket Medium & Long',
-                'image' => asset('images/volcano.png'),
-                'description' => 'Edukasi bentang alam vulkanik dan panorama megah lereng Merapi, mengamati formasi batuan endapan piroklastik alami.',
-            ],
-        ];
-
-        $reasons = [
-            [
-                'num' => '01',
-                'title' => 'Armada Terawat & Tangguh',
-                'desc' => 'Unit Jeep 4x4 kami selalu dicek berkala oleh mekanik berpengalaman sebelum beroperasi demi keselamatan maksimal Anda.',
-            ],
-            [
-                'num' => '02',
-                'title' => 'Driver Asli Lokal & Ramah',
-                'desc' => 'Dipandu putra daerah yang sangat hafal medan, cerita sejarah spot wisata, dan mahir mengambil foto sudut terbaik.',
-            ],
-            [
-                'num' => '03',
-                'title' => 'Pelayanan Ramah & Berpengalaman',
-                'desc' => 'Telah melayani ribuan wisatawan keluarga, rombongan perusahaan, instansi kedinasan, hingga komunitas touring.',
-            ],
-            [
-                'num' => '04',
-                'title' => 'Fasilitas Komplit & Transparan',
-                'desc' => 'Sudah mencakup asuransi perjalanan resmi, BBM, driver, air mineral gratis, serta tiket masuk tanpa biaya tersembunyi.',
-            ],
-        ];
-
-        $steps = [
-            [
-                'step' => '01',
-                'title' => 'Pilih Paket Wisata',
-                'desc' => 'Pilih rute Short, Medium, Long, Sunrise, atau Custom trip sesuai waktu dan preferensi rombongan Anda.',
-            ],
-            [
-                'step' => '02',
-                'title' => 'Tentukan Tanggal & Jam',
-                'desc' => 'Pilih tanggal kedatangan dan sesi jam trip (pagi, siang, atau sore saat golden hour menjelang senja).',
-            ],
-            [
-                'step' => '03',
-                'title' => 'Konfirmasi & DP Fleksibel',
-                'desc' => 'Admin kami akan mengonfirmasi ketersediaan armada dan Anda cukup membayar uang muka amanah.',
-            ],
-            [
-                'step' => '04',
-                'title' => 'Nikmati Petualangan!',
-                'desc' => 'Tiba di basecamp, kenakan safety gear, briefing singkat dengan driver, dan petualangan seru dimulai!',
-            ],
-        ];
-
-        $gallery = [
-            [
-                'title' => 'Keseruan Rombongan Trip',
-                'caption' => 'Armada Jeep Wukirsari siap menjelajah',
-                'image' => asset('images/medium_trip.jpg'),
-            ],
-            [
-                'title' => 'Water Splash Kali Opak',
-                'caption' => 'Sensasi cipratan air sungai yang memacu adrenalin',
-                'image' => asset('images/short_trip.jpg'),
-            ],
-            [
-                'title' => 'Jalur Kanopi Bambu Hutan',
-                'caption' => 'Menembus keteduhan alam lereng perbukitan',
-                'image' => asset('images/long_trip.jpg'),
-            ],
-            [
-                'title' => 'Golden Sunrise Perbukitan',
-                'caption' => 'Pesona mentari terbit di atas lautan awan',
-                'image' => asset('images/sunrise_trip.jpg'),
-            ],
-        ];
-
-        return view('index', compact('packages', 'spots', 'reasons', 'steps', 'gallery'));
+        return collect(config('jeep.packages'));
     }
 
-    /**
-     * Booking process endpoint (AJAX or direct redirect to WhatsApp)
-     */
-    public function book(Request $request)
+    public function index()
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:100',
-            'telepon' => 'required|string|max:20',
-            'paket' => 'required|string',
-            'tanggal' => 'required|date',
-            'sesi' => 'required|string',
-            'jumlah_jeep' => 'required|integer|min:1|max:50',
-            'catatan' => 'nullable|string|max:500',
-        ]);
-
-        $phone = '6281234567890';
-        $text = "Halo Admin Jeep Wisata Wukirsari Adventure,\n\n"
-              . "Saya ingin melakukan booking:\n"
-              . "• Nama: {$validated['nama']}\n"
-              . "• No HP/WA: {$validated['telepon']}\n"
-              . "• Paket: {$validated['paket']}\n"
-              . "• Tanggal: {$validated['tanggal']}\n"
-              . "• Sesi: {$validated['sesi']}\n"
-              . "• Jumlah Jeep: {$validated['jumlah_jeep']} Armada\n"
-              . ($validated['catatan'] ? "• Catatan: {$validated['catatan']}\n" : "")
-              . "\nMohon konfirmasi ketersediaan dan detail pembayarannya. Terima kasih!";
-
-        $whatsappUrl = "https://wa.me/{$phone}?text=" . urlencode($text);
-
-        if ($request->ajax() || $request->wantsJson()) {
-            return response()->json([
-                'success' => true,
-                'whatsapp_url' => $whatsappUrl,
-            ]);
+        $packages = $this->catalog();
+        $popularPackages = $packages->filter(fn ($p) => $p['popular'] ?? false);
+        if ($popularPackages->isEmpty()) {
+            $popularPackages = $packages->take(3);
+        } else {
+            // Include up to 3 cards for the home popular section
+            $popularPackages = $packages->take(3);
         }
 
-        return redirect()->away($whatsappUrl);
+        $gallery = collect(File::glob(public_path('images/gallery/*.{jpg,jpeg,png,webp}'), GLOB_BRACE))
+            ->map(fn ($path) => 'images/gallery/' . basename($path))
+            ->values();
+
+        if ($gallery->isEmpty()) {
+            // Fallback to existing public images if gallery folder was empty
+            $gallery = collect(['images/1.jpeg', 'images/2.jpeg', 'images/3.jpeg', 'images/4.jpeg', 'images/5.jpeg']);
+        }
+
+        $testimonials = collect(config('jeep.testimonials', []));
+
+        return view('home', compact('packages', 'popularPackages', 'gallery', 'testimonials'));
+    }
+
+    public function packages()
+    {
+        return view('packages.index', [
+            'packages' => $this->catalog(),
+        ]);
+    }
+
+    public function show(string $slug)
+    {
+        $package = $this->catalog()->firstWhere('slug', $slug);
+        abort_unless($package, 404);
+
+        return view('packages.show', [
+            'package'    => $package,
+            'facilities' => config('jeep.facilities'),
+        ]);
+    }
+
+    public function book(Request $request)
+    {
+        $validSlugs = $this->catalog()->pluck('slug')->all();
+
+        $data = $request->validate([
+            'name'    => ['required', 'string', 'max:80'],
+            'phone'   => ['required', 'regex:/^\+?[0-9][0-9\s\-]{7,17}$/'],
+            'package' => ['required', Rule::in($validSlugs)],
+            'date'    => ['required', 'date', 'after_or_equal:today'],
+            'session' => ['required', Rule::in(array_keys(config('jeep.sessions')))],
+            'jeeps'   => ['required', 'integer', 'between:1,10'],
+            'notes'   => ['nullable', 'string', 'max:300'],
+        ], [
+            'name.required'       => 'Nama lengkap wajib diisi.',
+            'phone.required'      => 'Nomor WhatsApp wajib diisi.',
+            'phone.regex'         => 'Format nomor WhatsApp tidak valid.',
+            'package.required'    => 'Pilih paket wisata.',
+            'package.in'          => 'Paket yang dipilih tidak tersedia.',
+            'date.required'       => 'Tanggal keberangkatan wajib diisi.',
+            'date.after_or_equal' => 'Tanggal tidak boleh sebelum hari ini.',
+            'session.required'    => 'Pilih sesi jam keberangkatan.',
+            'jeeps.required'      => 'Pilih jumlah armada jeep.',
+        ]);
+
+        $whatsapp = preg_replace('/\D/', '', (string) config('jeep.contact.whatsapp'));
+        if ($whatsapp === '') {
+            $whatsapp = '6281234567890';
+        }
+
+        $package = $this->catalog()->firstWhere('slug', $data['package']);
+        $rupiah  = fn (int $n) => 'Rp ' . number_format($n, 0, ',', '.');
+        $jeeps   = (int) $data['jeeps'];
+        $total   = $jeeps <= 5 ? $rupiah($package['price'] * $jeeps) : 'Hubungi admin (rombongan >5 armada)';
+        $date    = Carbon::parse($data['date'])->locale('id')->translatedFormat('l, j F Y');
+        $notes   = trim(preg_replace('/\s+/', ' ', (string) ($data['notes'] ?? '')));
+        $brand   = config('jeep.brand.name');
+
+        $lines = [
+            "Halo Admin {$brand}, saya ingin booking paket jeep wisata:",
+            "• Nama: {$data['name']}",
+            "• No WhatsApp: {$data['phone']}",
+            "• Paket: {$package['name']} ({$rupiah($package['price'])} / paket)",
+            "• Tanggal: {$date}",
+            "• Sesi Jam: " . (config('jeep.sessions')[$data['session']] ?? $data['session']),
+            "• Jumlah Armada: {$jeeps} Jeep",
+            "• Estimasi Total: {$total}",
+        ];
+
+        if ($notes !== '') {
+            $lines[] = "• Catatan: {$notes}";
+        }
+
+        $lines[] = "";
+        $lines[] = "Mohon konfirmasi ketersediaan armada dan informasi pembayarannya. Terima kasih!";
+
+        $url = 'https://wa.me/' . $whatsapp . '?text=' . rawurlencode(implode("\n", $lines));
+
+        return redirect()->away($url);
     }
 }
