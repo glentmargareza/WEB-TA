@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class TourController extends Controller
 {
@@ -324,9 +327,6 @@ class TourController extends Controller
         return view('booking', compact('packages', 'selectedPackage', 'sessions'));
     }
 
-    /**
-     * Booking process endpoint (AJAX or direct redirect to WhatsApp)
-     */
     public function book(Request $request)
     {
         $validated = $request->validate([
@@ -349,37 +349,58 @@ class TourController extends Controller
             'total_biaya' => 'nullable|numeric',
             'dp_biaya' => 'nullable|numeric',
             'catatan' => 'nullable|string|max:500',
+        $validSlugs = $this->catalog()->pluck('slug')->all();
+
+        $data = $request->validate([
+            'name'    => ['required', 'string', 'max:80'],
+            'phone'   => ['required', 'regex:/^\+?[0-9][0-9\s\-]{7,17}$/'],
+            'package' => ['required', Rule::in($validSlugs)],
+            'date'    => ['required', 'date', 'after_or_equal:today'],
+            'session' => ['required', Rule::in(array_keys(config('jeep.sessions')))],
+            'jeeps'   => ['required', 'integer', 'between:1,10'],
+            'notes'   => ['nullable', 'string', 'max:300'],
+        ], [
+            'name.required'       => 'Nama lengkap wajib diisi.',
+            'phone.required'      => 'Nomor WhatsApp wajib diisi.',
+            'phone.regex'         => 'Format nomor WhatsApp tidak valid.',
+            'package.required'    => 'Pilih paket wisata.',
+            'package.in'          => 'Paket yang dipilih tidak tersedia.',
+            'date.required'       => 'Tanggal keberangkatan wajib diisi.',
+            'date.after_or_equal' => 'Tanggal tidak boleh sebelum hari ini.',
+            'session.required'    => 'Pilih sesi jam keberangkatan.',
+            'jeeps.required'      => 'Pilih jumlah armada jeep.',
         ]);
 
-        $phone = '6281361645727';
-        $packageName = $validated['paket_nama'] ?? $validated['paket'];
-        $waktu = $validated['waktu'] ?? $validated['sesi'] ?? '08:00 - 09:00';
-        $jumlahOrang = $validated['jumlah_orang'] ?? '4 Orang';
-        $tipeKendaraan = $validated['tipe_kendaraan'] ?? 'Jeep 4x4';
-        $lokasiJemput = $validated['lokasi_penjemputan'] ?? 'Cangkringan, Sleman';
-        $durasi = $validated['durasi'] ?? '1 Hari';
-        $pendamping = $validated['jumlah_pendamping'] ?? '4 Orang';
-        $tipeBayar = $validated['tipe_pembayaran'] ?? 'Transfer Bank';
-        $totalFormatted = !empty($validated['total_biaya']) ? 'Rp ' . number_format($validated['total_biaya'], 0, ',', '.') : 'Rp 450.000';
+        $whatsapp = preg_replace('/\D/', '', (string) config('jeep.contact.whatsapp'));
+        if ($whatsapp === '') {
+            $whatsapp = '6281234567890';
+        }
 
-        $text = "Halo Admin Jeep Wisata Wukirsari Adventure,\n\n"
-              . "Saya ingin melakukan booking via Website:\n"
-              . "━━━━━━━━━━━━━━━━━━━━━\n"
-              . "• Nama Lengkap: {$validated['nama']}\n"
-              . "• No WhatsApp: {$validated['telepon']}\n"
-              . "• Tanggal: {$validated['tanggal']}\n"
-              . "• Waktu: {$waktu}\n"
-              . "• Jumlah Orang: {$jumlahOrang}\n"
-              . "• Paket Wisata: {$packageName}\n"
-              . "• Tipe Kendaraan: {$tipeKendaraan}\n"
-              . "• Lokasi Penjemputan: {$lokasiJemput}\n"
-              . "• Durasi: {$durasi}\n"
-              . "• Jumlah Pendamping: {$pendamping}\n"
-              . "• Tipe Pembayaran: {$tipeBayar}\n"
-              . "• Total Harga: {$totalFormatted}\n"
-              . (!empty($validated['catatan']) ? "• Catatan: {$validated['catatan']}\n" : "")
-              . "━━━━━━━━━━━━━━━━━━━━━\n"
-              . "Mohon info ketersediaan slot armada dan konfirmasi jadwal. Terima kasih!";
+        $package = $this->catalog()->firstWhere('slug', $data['package']);
+        $rupiah  = fn (int $n) => 'Rp ' . number_format($n, 0, ',', '.');
+        $jeeps   = (int) $data['jeeps'];
+        $total   = $jeeps <= 5 ? $rupiah($package['price'] * $jeeps) : 'Hubungi admin (rombongan >5 armada)';
+        $date    = Carbon::parse($data['date'])->locale('id')->translatedFormat('l, j F Y');
+        $notes   = trim(preg_replace('/\s+/', ' ', (string) ($data['notes'] ?? '')));
+        $brand   = config('jeep.brand.name');
+
+        $lines = [
+            "Halo Admin {$brand}, saya ingin booking paket jeep wisata:",
+            "• Nama: {$data['name']}",
+            "• No WhatsApp: {$data['phone']}",
+            "• Paket: {$package['name']} ({$rupiah($package['price'])} / paket)",
+            "• Tanggal: {$date}",
+            "• Sesi Jam: " . (config('jeep.sessions')[$data['session']] ?? $data['session']),
+            "• Jumlah Armada: {$jeeps} Jeep",
+            "• Estimasi Total: {$total}",
+        ];
+
+        if ($notes !== '') {
+            $lines[] = "• Catatan: {$notes}";
+        }
+
+        $lines[] = "";
+        $lines[] = "Mohon konfirmasi ketersediaan armada dan informasi pembayarannya. Terima kasih!";
 
         $whatsappUrl = "https://wa.me/{$phone}?text=" . urlencode($text);
 
@@ -399,6 +420,6 @@ class TourController extends Controller
             ]);
         }
 
-        return redirect()->away($whatsappUrl);
+        return redirect()->away($url);
     }
 }

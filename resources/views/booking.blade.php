@@ -438,7 +438,6 @@
         <!-- Hidden input for total and package name compatibility -->
         <input type="hidden" name="paket_nama" id="hiddenPaketNama" value="Adventure">
         <input type="hidden" name="total_biaya" id="hiddenTotalBiaya" value="450000">
-
       </div>
 
       <!-- ================= RIGHT COLUMN: RINGKASAN PESANAN ================= -->

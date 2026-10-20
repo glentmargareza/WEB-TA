@@ -1,0 +1,80 @@
+/* ==========================================================================
+   TOKENS - Jeep Wukirsari (sumber: DESIGN_SYSTEM.md)
+   Semua warna, jarak, radius, bayangan, dan animasi didefinisikan di sini.
+   ========================================================================== */
+:root {
+  /* Brand */
+  --color-primary-900: #163A2B;
+  --color-primary-800: #194432;
+  --color-primary-700: #1F4D3A;
+  --color-primary-600: #2A6048;
+  --color-primary-100: #E3EDE7;
+  --color-primary-50:  #F0F5F2;
+
+  /* Netral */
+  --color-bg:           #F6F5EF;
+  --color-surface:      #FFFFFF;
+  --color-border:       #E4E6DF;
+  --color-text:         #1B2B24;
+  --color-text-muted:   #55655D;
+  --color-text-on-dark: #FFFFFF;
+
+  /* Aksen dan status */
+  --color-accent:  #E8A317;   /* hanya bintang rating */
+  --color-success: #1E7A4C;
+  --color-danger:  #B3261E;
+  --color-focus:   #2A6048;
+
+  /* Overlay (turunan primary-900) */
+  --color-on-dark-muted: rgba(255, 255, 255, 0.88);
+  --color-on-dark-line:  rgba(255, 255, 255, 0.18);
+  --color-overlay-strong: rgba(22, 58, 43, 0.78);
+  --color-overlay-soft:   rgba(22, 58, 43, 0.35);
+  --color-scrim:          rgba(22, 58, 43, 0.55);
+
+  /* Font (maksimal 2) */
+  --font-sans:   "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-script: "Caveat", "Segoe Script", cursive;
+
+  /* Skala Fluid */
+  --text-xs:   0.8125rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl:  clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --text-3xl:  clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  --leading-tight:  1.2;
+  --leading-normal: 1.6;
+
+  /* Spacing (basis 4px) */
+  --space-1: 0.25rem;  --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;     --space-5: 1.5rem;  --space-6: 2rem;
+  --space-7: 3rem;     --space-8: 4rem;    --space-9: 6rem;
+
+  /* Radius */
+  --radius-sm: 8px;   --radius-md: 12px;  --radius-lg: 16px;
+  --radius-xl: 24px;  --radius-pill: 999px;
+
+  /* Bayangan */
+  --shadow-sm: 0 1px 3px rgba(22, 58, 43, 0.06);
+  --shadow-md: 0 6px 20px rgba(22, 58, 43, 0.08);
+  --shadow-lg: 0 12px 32px rgba(22, 58, 43, 0.12);
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-pad: clamp(1rem, 4vw, 2rem);
+  --header-height: 72px;
+
+  /* Z-index */
+  --z-header: 50;
+  --z-sticky: 40;
+  --z-dialog: 100;
+
+  /* Animasi */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+}
